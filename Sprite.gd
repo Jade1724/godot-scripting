@@ -1,6 +1,6 @@
 extends Sprite
 
-signal health_depleted
+signal health_changed(old_value, new_value)
 
 var health = 10
 var speed = 400
@@ -22,6 +22,6 @@ func _on_Timer_timeout():
 	visible = not visible
 
 func take_damage(amount):
+	var old_health = health
 	health -= amount
-	if health <= 0:
-		emit_signal("health_depleted")
+	emit_signal("health_changed", old_health, health)
